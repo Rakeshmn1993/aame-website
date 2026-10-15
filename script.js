@@ -45,7 +45,7 @@ const CONFIG = {
   },
   rsvpBy: "February 1, 2027",
   rsvpEmail: "rakeshmn09@gmail.com",
-  footer: "With love, the family - Nataraj (ajja), Shashikala (ajji), Rakesh (appa), Sahana (amma), Girish (appayi), Swarna (ammayi), Dhruva and Apporva (anna appooorvaa))",
+  footer: "With love, the family - Nataraj (ajja), Shashikala (ajji), Rakesh (appa), Sahana (amma), Girish (appayi), Swarna (ammayi), Dhruva and Apporva (anna appooorvaa) and my all other family members",
 };
 
 const $ = (id) => document.getElementById(id);
