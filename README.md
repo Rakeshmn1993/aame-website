@@ -148,13 +148,28 @@ The `www-data` user must be able to write `/var/www/aame-website/data`. Create i
 
 ## Update the site
 
+**1. Push the change from your Mac**
+
+```bash
+cd /Users/rnataraj/dev/aame-website
+git add <changed files>
+git commit -m "Describe the change"
+git push
+```
+
+**2. Pull the change on the server**
+
 ```bash
 cd /var/www/aame-website && sudo git pull
-# Run the next line only if server.js changed:
+```
+
+**3. Restart the poll service only if `server.js` changed**
+
+```bash
 sudo systemctl restart aame-poll
 ```
 
-Restart the poll service only if `server.js` changed. Static files are served directly, so nginx does not need a restart.
+Static files such as `index.html`, `script.js`, and `styles.css` are served directly, so they need no restart. Nginx does not need a restart either. Reload the page with Cmd+Shift+R to clear the browser cache.
 
 `data/` is not tracked by git, so `git pull` does not change it. Back up `data/votes.json` and `data/visits.json` before major changes.
 
