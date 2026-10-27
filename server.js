@@ -15,7 +15,9 @@ const TYPES = {
   ".jpeg": "image/jpeg",
   ".png": "image/png",
   ".ico": "image/x-icon",
+  ".pdf": "application/pdf",
 };
+const RESUME_DIR = path.join(ROOT, "resume");
 
 function readVotes() {
   try {
@@ -119,7 +121,20 @@ async function handleApi(req, res, url) {
   send(res, 404, { error: "Not found" });
 }
 
+function serveResumeIndex(res) {
+  fs.readdir(RESUME_DIR, (err, names) => {
+    if (err) return send(res, 404, "Not found", "text/plain; charset=utf-8");
+    const items = names
+      .filter((name) => !name.startsWith("."))
+      .sort()
+      .map((name) => `<li><a href="/resume/${encodeURIComponent(name)}">${name}</a></li>`)
+      .join("");
+    send(res, 200, `<!doctype html><meta charset="utf-8"><title>Resume</title><ul>${items}</ul>`, "text/html; charset=utf-8");
+  });
+}
+
 function serveStatic(res, pathname) {
+  if (pathname === "/resume" || pathname === "/resume/") return serveResumeIndex(res);
   let rel = decodeURIComponent(pathname);
   if (rel.endsWith("/")) rel += "index.html";
   const file = path.normalize(path.join(ROOT, rel));
